@@ -230,12 +230,19 @@ input#snfP{
                                 <option>Invoice Not Sent </option>
                             </select>
                         </div>
-                        <div class="col-3">
-                            <label for="bankName">Bank Name</label>
-                            <select id="bankName" class="form-control" name="bankName" >
-                                <option>HDFC</option>
-                                <option>Federal Bank</option>
-                                <option>State Bank of India </option>
+<!--                        <div class="col-3">-->
+<!--                            <label for="bankName">Bank Name</label>-->
+<!--                            <select id="bankName" class="form-control" name="bankName" >-->
+<!--                                <option>HDFC</option>-->
+<!--                                <option>Federal Bank</option>-->
+<!--                                <option>State Bank of India </option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+                        <div class="col-8">
+                            <label for="bankName">BankName</label>
+                            <select id="bankName" class="form-control" name="bankName">
+                                <option> --- Select Bank Name ---</option>
+                                <option th:each="i : ${bank}" th:value="${i.bankName}"><span th:text="${i.bankName}"></span></option>
                             </select>
                         </div>
                     </div>

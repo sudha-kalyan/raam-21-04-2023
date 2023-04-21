@@ -119,12 +119,12 @@ input#snfP{
             </div>
 
             <div class="col">
-                <label for="fromDate">From Date</label>
+                <label for="fromDate">From Data</label>
                 <input id="fromDate" name="invDate" class="form-control" type="date" th:min="${dateTime}" placeholder="dd/mm/yyyy">
             </div>
             <div class="col">
-                <label for="toDate">To Date</label>
-                <input id="toDate" name="invDate" class="form-control" type="date" th:min="${dateTime}" placeholder="dd/mm/yyyy">
+                <label for="toDate">To Data</label>
+                <input id="toDate" name="recDate" class="form-control" type="date" th:min="${dateTime}" placeholder="dd/mm/yyyy">
             </div>
 
 
@@ -144,9 +144,9 @@ input#snfP{
 <script>
 $('#submit').click(function() {
 var supplierName=$("#supplierName").val();
-alert(supplierName);
+//alert(supplierName);
 var fromDate = $("#fromDate").val();
-alert(fromDate);
+//alert(fromDate);
 var toDate = $("#toDate").val();
 alert(toDate);
 $.ajax({
@@ -157,14 +157,15 @@ url: '/purchaseExcelData',
         data: {
                 "supplier":supplierName,
                 "invDate": fromDate,
-               "toDate":toDate,
-               "snfP":snfP,
-               "fatP":fatP,
-               "quantity":quantity,
-               "tsRate":tsRate,
-               "milkType":milkType,
-               "paymentStatus":paymentStatus,
-               "bankName":bankName
+                "recDate": toDate,
+               "vehicleNo":"",
+               "snfP":"",
+               "fatP":"",
+               "quantity":"",
+               "tsRate":"",
+               "milkType":"",
+               "paymentStatus":"",
+               "bankName":""
             },
             success: function(data) {
 //alert("Data Saved Successfully !!!");

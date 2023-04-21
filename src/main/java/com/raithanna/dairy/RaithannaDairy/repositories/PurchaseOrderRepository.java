@@ -25,4 +25,7 @@ public interface PurchaseOrderRepository extends CrudRepository<purchaseOrder,In
    Integer countDistinctSupplierByInvDate(LocalDate invDate);
    List<purchaseOrder> findByInvDate(LocalDate recDate);
 
+   @Query("select * from  purchase_order where supplier=?1 and invDate=?2 and invDate=?3")
+   List<purchaseOrder> findBySupplierAndInvDateBetween(String supplier, LocalDate invDate, LocalDate recDate);
 }
+

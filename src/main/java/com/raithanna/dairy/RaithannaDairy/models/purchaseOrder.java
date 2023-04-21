@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class purchaseOrder {
+public class purchaseOrder extends DownloadSuperBean{
     @Id
     @GeneratedValue
     private Integer id;

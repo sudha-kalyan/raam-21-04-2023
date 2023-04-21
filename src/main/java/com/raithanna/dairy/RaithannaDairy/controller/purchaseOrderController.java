@@ -1,4 +1,5 @@
 package com.raithanna.dairy.RaithannaDairy.controller;
+import com.raithanna.dairy.RaithannaDairy.Utility.DownloadCsvReport;
 import com.raithanna.dairy.RaithannaDairy.models.purchaseOrder;
 import com.raithanna.dairy.RaithannaDairy.models.supplier;
 import com.raithanna.dairy.RaithannaDairy.repositories.CustomerRepository;
@@ -8,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.*;
@@ -138,21 +142,23 @@ public class purchaseOrderController {
         return "redirect:/purchase";
     }
 
-
     @PostMapping("/purchaseExcelData")
-    public String purchaseExcelData(@RequestParam Map<String, String> body, Model model) {
+    public String purchaseExcelData(@RequestParam Map<String, String> body, Model model, HttpServletResponse response, HttpServletRequest request) {
         System.out.println(body);
-        body.get("supplierName");
-        LocalDate.parse(body.get("invDate"));
-        Double.parseDouble(body.get("snfP"));
-        Double.parseDouble(body.get("fatP"));
-        Double.parseDouble(body.get("tsRate"));
-        Double.parseDouble(body.get("quantity"));
-        body.get("milkType");
-        body.get("supplierName");
-        body.get("bankName");
-        body.get("paymentStatus");
+        purchaseOrder po = new purchaseOrder();
+        System.out.println("SupplierCode:" + body.get("code"));
+        po.setSupplier(body.get("supplierName"));
+        po.setInvDate(LocalDate.parse(body.get("invDate")));
+        po.setRecDate(LocalDate.parse(body.get("recDate")));
 
+        // excel data list
+        List<purchaseOrder> list = purchaseOrderRepository.findBySupplierAndInvDateBetween(po.getSupplier(), po.getInvDate(), po.getRecDate());
+
+        String header[] = {"invDate", "quantity", "fatP", "snfP"};
+
+        DownloadCsvReport.getCsvReportDownload(response, header, list, "invoice_data.csv");
+
+        System.out.println("Excel Size -- "+list.size());
         return "redirect:/purchaseExcelData";
     }
 }
